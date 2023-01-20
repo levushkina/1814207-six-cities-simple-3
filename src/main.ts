@@ -5,11 +5,13 @@ import Application from './app/application.js';
 import { applicationContainer } from './app/application.container.js';
 import { userContainer } from './modules/user/user.container.js';
 import { offerContainer } from './modules/offer/offer.container.js';
+import { commentContainer } from './modules/comment/comment.container.js';
 
 const mainContainer = Container.merge(
   applicationContainer,
   userContainer,
-  offerContainer
+  offerContainer,
+  commentContainer
 );
 
 async function bootstrap() {
