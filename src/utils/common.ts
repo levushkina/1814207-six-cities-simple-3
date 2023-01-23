@@ -1,15 +1,20 @@
 import crypto from 'crypto';
 import { OfferType } from '../types/offer-type.enum.js';
 import { Offer } from '../types/offer.type.js';
+import { City } from '../types/city.type.js';
 
 export const createOffer = (row: string) => {
   const tokens = row.replace('\n', '').split('\t');
   const [title, description, date, city, previewImage, images, isPremium, rating, type, bedrooms, guests, price, goods, name, email, isPro, password, avatarPath, latitude, longitude ] = tokens;
+  const cityData = <City>JSON.parse(city);
   return {
     title,
     description,
     date: new Date(date),
-    city,
+    city: {
+      name: cityData.name,
+      location: cityData.location
+    },
     previewImage,
     images: images.split(';'),
     isPremium: !!isPremium,

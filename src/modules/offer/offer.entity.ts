@@ -2,6 +2,7 @@ import typegoose, {defaultClasses, getModelForClass, Ref} from '@typegoose/typeg
 import { OfferType } from '../../types/offer-type.enum.js';
 import { UserEntity } from '../user/user.entity.js';
 import { Location } from '../../types/location.type.js';
+import { City } from '../../types/city.type.js';
 
 const { prop, modelOptions } = typegoose;
 
@@ -23,7 +24,7 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   public date!: Date;
 
   @prop({trim: true, required: true})
-  public city!: string;
+  public city!: City;
 
   @prop({trim: true, required: true})
   public previewImage!: string;

@@ -2,38 +2,15 @@ import dayjs from 'dayjs';
 import { MockData } from '../../types/mock-data.type.js';
 import { OfferType } from '../../types/offer-type.enum.js';
 import { OfferGoods } from '../../types/offer-goods.enum.js';
+import { PriceRange } from '../../types/price-range.enum.js';
+import { GuestsRange } from '../../types/guests-range.enum.js';
+import { RoomsRange } from '../../types/rooms-range.enum.js';
+import { PasswordRange } from '../../types/password-range.enum.js';
+import { RatingRange } from '../../types/rating-range.enum.js';
+import { WeekDays } from '../../types/week-days.enum.js';
+import { City } from '../../types/city.type.js';
 import { generateRandomValue, getRandomItem, getRandomItems, getRandomBoolean } from '../../utils/random.js';
 import { OfferGeneratorInterface } from './offer-generator.interface.js';
-
-enum PriceRange {
-  Min = 100,
-  Max = 10000,
-}
-
-enum WeekDays {
-  First = 1,
-  Last = 7,
-}
-
-enum GuestsRange {
-  Min = 0,
-  Max = 10,
-}
-
-enum RoomsRange {
-  Min = 0,
-  Max = 8,
-}
-
-enum PasswordRange {
-  Min = 999999,
-  Max = 999999999999,
-}
-
-enum RatingRange {
-  Min = 1,
-  Max = 5,
-}
 
 export default class OfferGenerator implements OfferGeneratorInterface {
   constructor(private readonly mockData: MockData) {}
@@ -41,7 +18,7 @@ export default class OfferGenerator implements OfferGeneratorInterface {
   public generate(): string {
     const title = getRandomItem<string>(this.mockData.titles);
     const description = getRandomItem<string>(this.mockData.descriptions);
-    const city = getRandomItem<string>(this.mockData.cities);
+    const city = getRandomItem<City>(this.mockData.cities);
     const previewImage = getRandomItem<string>(this.mockData.previewImages);
     const images = getRandomItem<string>(this.mockData.images);
     const type = getRandomItem(Object.values(OfferType));
@@ -63,7 +40,7 @@ export default class OfferGenerator implements OfferGeneratorInterface {
     return [
       title,
       description, createdDate,
-      city,
+      JSON.stringify(city),
       previewImage,
       images,
       isPremium,

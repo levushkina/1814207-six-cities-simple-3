@@ -1,10 +1,12 @@
 import { OfferType } from '../../../types/offer-type.enum.js';
+import { City } from '../../../types/city.type.js';
+import { Location } from '../../../types/location.type.js';
 
 export default class CreateOfferDto {
   public title!: string;
   public description!: string;
   public date!: Date;
-  public city!: string;
+  public city!: City;
   public previewImage!: string;
   public images!: string[];
   public isPremium!: boolean;
@@ -15,8 +17,5 @@ export default class CreateOfferDto {
   public price!: number;
   public goods!: string[];
   public host!: string;
-  public location!: {
-    latitude: number,
-    longitude: number
-  };
+  public location!: Location;
 }
