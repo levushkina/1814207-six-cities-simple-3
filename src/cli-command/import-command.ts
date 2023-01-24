@@ -13,7 +13,7 @@ import { UserModel } from '../modules/user/user.entity.js';
 import { Offer } from '../types/offer.type.js';
 import { LoggerInterface } from '../common/logger/logger.interface.js';
 import { DatabaseInterface} from '../common/database-client/database.interface.js';
-import { DEFAULT_DB_PORT, DEFAULT_USER_PASSWORD } from '../consts.js'
+import { DEFAULT_DB_PORT, DEFAULT_USER_PASSWORD } from '../consts.js';
 
 export default class ImportCommand implements CliCommandInterface {
   public readonly name = '--import';

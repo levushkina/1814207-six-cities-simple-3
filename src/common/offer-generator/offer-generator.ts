@@ -54,9 +54,9 @@ export default class OfferGenerator implements OfferGeneratorInterface {
       email,
       isPro,
       password,
+      avatarPath,
       latitude,
       longitude,
-      avatarPath,
     ].join('\t');
   }
 }
