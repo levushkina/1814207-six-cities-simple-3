@@ -2,7 +2,6 @@ import { User } from './user.type.js';
 import { OfferType } from './offer-type.enum.js';
 import { Location } from './location.type.js';
 
-
 export type Offer = {
   title: string,
   description: string,
