@@ -57,4 +57,9 @@ export default class OfferService implements OfferServiceInterface {
         commentCount: 1,
       }}).exec();
   }
+
+  public async exists(documentId: string): Promise<boolean> {
+    return (await this.offerModel
+      .exists({_id: documentId})) !== null;
+  }
 }

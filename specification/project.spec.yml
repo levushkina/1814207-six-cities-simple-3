@@ -398,6 +398,12 @@ components:
         rating:
           type: number
           example: 3.2
+        offerId:
+          type: string
+          example: 'fdf54f4d5f'
+        userId:
+          type: string
+          example: 'fdf54f4d5f'
 
     commentWithDate:
       type: object
