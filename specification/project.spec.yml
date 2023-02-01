@@ -284,9 +284,9 @@ components:
     user:
       type: object
       properties:
-        id:
+        name:
           type: string
-          example: 6329c3d6a04ab1061c6425ea
+          example: Keks
         email:
           type: string
           example: keks@htmlacademy.ru
@@ -339,15 +339,11 @@ components:
           type: string
           example: testid
         location:
-          type: string
-          example: 365655, 656565
+          $ref: '#/components/schemas/location'
 
     offerShort:
       type: object
       properties:
-        id: 
-          type: string
-          example: id
         title: 
           type: string
           example: some title
@@ -355,8 +351,7 @@ components:
           type: Date
           example: 10.35.55
         city:
-          type: string
-          example: Paris
+          $ref: '#/components/schemas/city'
         previewImage:
           type: string
           example: imagePath
@@ -421,3 +416,22 @@ components:
         date:
           type: Date
           example: 31/12/24
+
+    location:
+      type: object
+      properties:
+        latitude:
+          type: number
+          example: 48.85661
+        longitude: 
+          type: number
+          example: 2.351499
+
+    city:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Paris
+        location: 
+          $ref: '#/components/schemas/location'
