@@ -10,7 +10,6 @@ export default class CreateUserDto {
   @IsEmail({}, { message: 'email must be valid address' })
   public email!: string ;
 
-  @IsString({ message: 'avatarPath must be a string' })
   public avatarPath?: string;
 
   @IsString({ message: 'name must be a string' })
