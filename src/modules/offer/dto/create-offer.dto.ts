@@ -35,9 +35,6 @@ export default class CreateOfferDto {
   @Type(() => OfferCityDto)
   public city!: City;
 
-  @MaxLength(256, { message: 'Too long for field previewImage' })
-  public previewImage!: string;
-
   @IsArray({ message: 'Field images must be an array' })
   @IsString({ each: true, message: 'Images field must be an array of string' })
   @MaxLength(256, { each: true, message: 'Too long for field Image' })

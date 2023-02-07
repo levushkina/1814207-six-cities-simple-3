@@ -10,8 +10,6 @@ export default class CreateUserDto {
   @IsEmail({}, { message: 'email must be valid address' })
   public email!: string ;
 
-  public avatarPath?: string;
-
   @IsString({ message: 'name must be a string' })
   @MinLength(1, { message: 'Minimum name length must be 1' })
   @MaxLength(15, { message: 'Maximum name length must be 15' })

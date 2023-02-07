@@ -7,6 +7,8 @@ import { UserServiceInterface } from './user-service.interface.js';
 import { LoggerInterface } from '../../common/logger/logger.interface.js';
 import { Component } from '../../types/component.types.js';
 import LoginUserDto from './dto/login-user.dto.js';
+import { DEFAULT_AVATAR_FILE_NAME } from './user.constant.js';
+import UpdateUserDto from './dto/update-user.dto.js';
 
 @injectable()
 export default class UserService implements UserServiceInterface {
@@ -16,17 +18,17 @@ export default class UserService implements UserServiceInterface {
   ) {}
 
   public async create(dto: CreateUserDto, salt: string): Promise<DocumentType<UserEntity>> {
-    const user = new UserEntity(dto);
+    const user = new UserEntity({ ...dto, avatarPath: DEFAULT_AVATAR_FILE_NAME });
     user.setPassword(dto.password, salt);
 
     const result = await this.userModel.create(user);
-    this.logger.info(`New user created: ${user.email}`);
+    this.logger.info(`New user created: ${ user.email }`);
 
     return result;
   }
 
   public async findByEmail(email: string): Promise<DocumentType<UserEntity> | null> {
-    return this.userModel.findOne({email});
+    return this.userModel.findOne({ email });
   }
 
   public async findOrCreate(dto: CreateUserDto, salt: string): Promise<DocumentType<UserEntity>> {
@@ -40,7 +42,13 @@ export default class UserService implements UserServiceInterface {
   }
 
   public async findById(id: string): Promise<DocumentType<UserEntity> | null> {
-    return this.userModel.findOne({id});
+    return this.userModel.findOne({ id });
+  }
+
+  public async updateById(id: string, dto: UpdateUserDto): Promise<DocumentType<UserEntity> | null> {
+    return this.userModel
+      .findByIdAndUpdate(id, dto, { new: true })
+      .exec();
   }
 
   public async verifyUser(dto: LoginUserDto, salt: string): Promise<DocumentType<UserEntity> | null> {
