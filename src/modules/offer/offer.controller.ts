@@ -18,6 +18,7 @@ import { ValidateObjectIdMiddleware } from '../../common/middlewares/validate-ob
 import { ValidateDtoMiddleware } from '../../common/middlewares/validate-dto.middleware.js';
 import { DocumentExistsMiddleware } from '../../common/middlewares/document-exists.middleware.js';
 import { PrivateRouteMiddleware } from '../../common/middlewares/private-route.middleware.js';
+import { CheckOwnerMiddleware } from '../../common/middlewares/check-owner.middleware.js';
 import { ConfigInterface } from '../../common/config/config.interface.js';
 import { UploadFileMiddleware } from '../../common/middlewares/upload-file.middleware.js';
 import UploadPreviewResponse from './response/upload-preview.response.js';
@@ -62,6 +63,7 @@ export default class OfferController extends Controller {
       handler: this.delete,
       middlewares: [
         new PrivateRouteMiddleware(),
+        new CheckOwnerMiddleware(this.offerService, 'offerId'),
         new ValidateObjectIdMiddleware('offerId'),
         new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId'),
       ]
@@ -72,6 +74,7 @@ export default class OfferController extends Controller {
       handler: this.update,
       middlewares: [
         new PrivateRouteMiddleware(),
+        new CheckOwnerMiddleware(this.offerService, 'offerId'),
         new ValidateObjectIdMiddleware('offerId'),
         new ValidateDtoMiddleware(UpdateOfferDto),
         new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId'),

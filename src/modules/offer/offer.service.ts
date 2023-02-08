@@ -63,4 +63,12 @@ export default class OfferService implements OfferServiceInterface {
     return (await this.offerModel
       .exists({_id: documentId})) !== null;
   }
+
+  public async isOwner(userId: string, documentId: string): Promise<boolean> {
+    const offer = await this.offerModel
+      .findById(documentId)
+      .populate(['host'])
+      .exec();
+    return offer?.host?._id.toString() === userId;
+  }
 }

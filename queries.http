@@ -61,12 +61,13 @@ Content-Type: application/json
 
 POST http://localhost:5000/offers/ HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRlc3RAb3Zlcmxvb2s1Lm5ldCIsImlkIjoiNjNlMGI2ZWIxMDk0ZDFmMWU3ZmZkNjU4IiwiaWF0IjoxNjc1ODQ2Mjk4LCJleHAiOjE2NzYwMTkwOTh9.RP1NEjF2ca6qNrufYsxivGpH2ji425oDfWgY_uaQrJo
 
 {
   "title": "some short title",
-  "date": "2022-05-12T11:56:37.573Z",
+  "date": "2023-02-08T14:56:37.573Z",
   "city": {
-    "name": "Cologne",
+    "name": "Paris",
     "location": {
       "latitude": 50.938361,
       "longitude": 6.959974
@@ -105,7 +106,7 @@ Content-Type: application/json
 
 PATCH http://localhost:5000/offers/63d2588093ede432719fcb67 HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRlc3RAb3Zlcmxvb2s1Lm5ldCIsImlkIjoiNjNlMGI2ZWIxMDk0ZDFmMWU3ZmZkNjU4IiwiaWF0IjoxNjc1NjcxMzY5LCJleHAiOjE2NzU4NDQxNjl9.tA_RBhWNcc-WOQ4LYs9YrGN1CCfyP7SSBHlKwrDwn3Q
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRlc3RAb3Zlcmxvb2s1Lm5ldCIsImlkIjoiNjNlMGI2ZWIxMDk0ZDFmMWU3ZmZkNjU4IiwiaWF0IjoxNjc1ODQ1NzUwLCJleHAiOjE2NzYwMTg1NTB9.y_-kImZFkhs4TyPE4h-eZwcC5gs6_b6C65XMn-Z5RnM
 
 {
   "title": "some short title new",
@@ -131,8 +132,9 @@ Content-Type: image/png
 # Предложения
 ## Удаление предложения
 
-DELETE http://localhost:5000/offers/63d267a23805913a8ca72d57 HTTP/1.1
+DELETE http://localhost:5000/offers/63e36c1d90324e242a321b44 HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRlc3RAb3Zlcmxvb2s1Lm5ldCIsImlkIjoiNjNlMGI2ZWIxMDk0ZDFmMWU3ZmZkNjU4IiwiaWF0IjoxNjc1ODQ2Mjk4LCJleHAiOjE2NzYwMTkwOTh9.RP1NEjF2ca6qNrufYsxivGpH2ji425oDfWgY_uaQrJo
 
 ###
 
