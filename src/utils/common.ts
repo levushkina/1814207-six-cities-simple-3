@@ -1,7 +1,7 @@
 import * as jose from 'jose';
 import crypto from 'crypto';
 import { plainToInstance, ClassConstructor } from 'class-transformer';
-import { ValidationError } from 'class-validator';;
+import { ValidationError } from 'class-validator';
 import { OfferType } from '../types/offer-type.enum.js';
 import { Offer } from '../types/offer.type.js';
 import { City } from '../types/city.type.js';

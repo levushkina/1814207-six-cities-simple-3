@@ -8,7 +8,7 @@ import { ControllerInterface } from './controller.interface.js';
 import { ConfigInterface } from '../config/config.interface.js';
 import { getFullServerPath, transformObject } from '../../utils/common.js';
 import { UnknownObject } from '../../types/unknown-object.type.js';
-import { STATIC_RESOURCE_FIELDS }  from '../../app/application.constant.js';
+import { STATIC_RESOURCE_FIELDS } from '../../app/application.constant.js';
 
 @injectable()
 export abstract class Controller implements ControllerInterface {

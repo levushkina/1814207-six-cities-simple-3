@@ -83,7 +83,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRlc3RAb3Zlcmxvb2s1Lm5ld
   "bedrooms": 4,
   "guests": 2,
   "goods": ["Breakfast", "Washer"],
-  "host": "63d2588093ede432719fcb12",
   "location": {
     "latitude": 53.550341,
     "longitude": 10.000654
@@ -158,9 +157,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRlc3RAb3Zlcmxvb2s1Lm5ld
 
 ## Отправка аватарки пользователю
 
-POST http://localhost:5000/users/63d2588093ede432719fcb12/avatar HTTP/1.1
+POST http://localhost:5000/users/63e0b6eb1094d1f1e7ffd658/avatar HTTP/1.1
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRlc3RAb3Zlcmxvb2s1Lm5ldCIsImlkIjoiNjNlMGI2ZWIxMDk0ZDFmMWU3ZmZkNjU4IiwiaWF0IjoxNjc1NjcxMzY5LCJleHAiOjE2NzU4NDQxNjl9.tA_RBhWNcc-WOQ4LYs9YrGN1CCfyP7SSBHlKwrDwn3Q
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRlc3RAb3Zlcmxvb2s1Lm5ldCIsImlkIjoiNjNlMGI2ZWIxMDk0ZDFmMWU3ZmZkNjU4IiwiaWF0IjoxNjc1ODQ2Mjk4LCJleHAiOjE2NzYwMTkwOTh9.RP1NEjF2ca6qNrufYsxivGpH2ji425oDfWgY_uaQrJo
 
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="avatar"; filename="screen.png"

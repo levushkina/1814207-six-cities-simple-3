@@ -16,7 +16,7 @@ import { ValidateDtoMiddleware } from '../../common/middlewares/validate-dto.mid
 import { ValidateObjectIdMiddleware } from '../../common/middlewares/validate-objectid.middleware.js';
 import { UploadFileMiddleware } from '../../common/middlewares/upload-file.middleware.js';
 import LoggedUserResponse from './response/logged-user.response.js';
-import { JWT_ALGORITM } from './user.constant.js';
+import { JWT_ALGORITM, AVAILABLE_AVATAR_MIMETYPES } from './user.constant.js';
 import UploadUserAvatarResponse from './response/upload-user-avatar.response.js';
 
 @injectable()
@@ -55,7 +55,7 @@ export default class UserController extends Controller {
       handler: this.uploadAvatar,
       middlewares: [
         new ValidateObjectIdMiddleware('userId'),
-        new UploadFileMiddleware(this.configService.get('UPLOAD_DIRECTORY'), 'avatar'),
+        new UploadFileMiddleware(this.configService.get('UPLOAD_DIRECTORY'), 'avatar', AVAILABLE_AVATAR_MIMETYPES),
       ]
     });
   }

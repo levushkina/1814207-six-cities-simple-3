@@ -16,6 +16,8 @@ import {
   ValidateNested,
   IsString,
   IsBoolean,
+  ArrayMinSize,
+  ArrayMaxSize,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 
@@ -36,8 +38,9 @@ export default class CreateOfferDto {
   public city!: City;
 
   @IsArray({ message: 'Field images must be an array' })
+  @ArrayMinSize(6, { message: 'Images count must be 6' })
+  @ArrayMaxSize(6, { message: 'Images count must be 6' })
   @IsString({ each: true, message: 'Images field must be an array of string' })
-  @MaxLength(256, { each: true, message: 'Too long for field Image' })
   public images!: string[];
 
   @IsBoolean({ message: 'Field isPremium must be a boolean' })
