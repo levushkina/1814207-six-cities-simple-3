@@ -46,11 +46,6 @@ export default class CreateOfferDto {
   @IsBoolean({ message: 'Field isPremium must be a boolean' })
   public isPremium!: boolean;
 
-  @IsInt({ message: 'Rating must be an integer' })
-  @Min(1, { message: 'Minimum rating is 1' })
-  @Max(5, { message: 'Maximum rating is 5' })
-  public rating!: number;
-
   @IsEnum(OfferType, { message: 'type must be Apartment or House or Room or Hotel' })
   public type!: OfferType;
 

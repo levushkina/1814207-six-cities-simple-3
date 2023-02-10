@@ -32,7 +32,7 @@ export default class OfferFullResponse {
   public price!: number;
 
   @Expose()
-  public commentsCount!: number;
+  public commentCount!: number;
 
   @Expose()
   public description!: string;

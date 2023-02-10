@@ -52,11 +52,20 @@ export default class OfferService implements OfferServiceInterface {
       .exec();
   }
 
-  public async incCommentCount(offerId: string): Promise<DocumentType<OfferEntity> | null> {
+  public async incCommentCount(offerId: string, rating: number): Promise<DocumentType<OfferEntity> | null> {
+    const offer = await this.offerModel
+      .findById(offerId).exec();
+
+    if (!offer) { return null; }
+    const totalRating = (offer.rating + rating) / (offer.commentCount + 1);
+
     return this.offerModel
-      .findByIdAndUpdate(offerId, {'$inc': {
-        commentCount: 1,
-      }}).exec();
+    .findByIdAndUpdate(offerId, {'$inc': {
+      commentCount: 1,
+    },
+    '$set': {
+      'rating': Number(totalRating.toFixed(1))
+    }}).exec();
   }
 
   public async exists(documentId: string): Promise<boolean> {

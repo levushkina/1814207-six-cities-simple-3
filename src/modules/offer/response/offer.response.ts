@@ -27,5 +27,5 @@ export default class OfferResponse {
   public price!: number;
 
   @Expose()
-  public commentsCount!: number;
+  public commentCount!: number;
 }

@@ -41,10 +41,6 @@ export default class UpdateOfferDto {
   public city?: City;
 
   @IsOptional()
-  @MaxLength(256, { message: 'Too long for field previewImage' })
-  public previewImage?: string;
-
-  @IsOptional()
   @IsArray({ message: 'Field images must be an array' })
   @IsString({ each: true, message: 'Images field must be an array of string' })
   @MaxLength(256, { each: true, message: 'Too long for field Image' })
@@ -53,12 +49,6 @@ export default class UpdateOfferDto {
   @IsOptional()
   @IsBoolean({ message: 'Field isPremium must be a boolean' })
   public isPremium?: boolean;
-
-  @IsOptional()
-  @IsInt({ message: 'Rating must be an integer' })
-  @Min(1, { message: 'Minimum rating is 1' })
-  @Max(5, { message: 'Maximum rating is 5' })
-  public rating?: number;
 
   @IsOptional()
   @IsEnum(OfferType, { message: 'type must be Apartment or House or Room or Hotel' })

@@ -365,10 +365,10 @@ components:
           type: number
           example: 36556
 
-    commentsCount:
+    commentCount:
       type: object
       properties:
-        commentsCount:
+        commentCount:
           type: number
           example: 8
 
@@ -377,14 +377,14 @@ components:
       allOf: 
         - $ref: '#/components/schemas/offerShort'
         - $ref: '#/components/schemas/offerExtendet'
-        - $ref: '#/components/schemas/commentsCount'
+        - $ref: '#/components/schemas/commentCount'
 
     offers:
       type: array
       items:
         allOf: 
           - $ref: '#/components/schemas/offerShort'
-          - $ref: '#/components/schemas/commentsCount'
+          - $ref: '#/components/schemas/commentCount'
         
     comment:
       type: object
