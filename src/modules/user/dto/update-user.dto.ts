@@ -5,12 +5,13 @@ import {
   IsBoolean,
   IsOptional
 } from 'class-validator';
+import { UserNameRange } from '../user.constant.js';
 
 export default class UpdateUserDto {
   @IsOptional()
   @IsString({ message: 'name must be a string' })
-  @MinLength(1, { message: 'Minimum name length must be 1' })
-  @MaxLength(15, { message: 'Maximum name length must be 15' })
+  @MinLength(UserNameRange.Min, { message: `Minimum name length must be ${ UserNameRange.Min }` })
+  @MaxLength(UserNameRange.Max, { message: `Maximum name length must be ${ UserNameRange.Max }` })
   public name?: string;
 
   @IsOptional()
@@ -18,6 +19,5 @@ export default class UpdateUserDto {
   public isPro?: boolean;
 
   @IsOptional()
-  @MaxLength(256, { message: 'Too long for field previewImage' })
   public avatarPath?: string;
 }

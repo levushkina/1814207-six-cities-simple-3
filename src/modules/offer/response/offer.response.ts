@@ -1,5 +1,5 @@
 import { Expose } from 'class-transformer';
-//import { City } from '../../../types/city.type.js';
+import { City } from '../../../types/city.type.js';
 
 export default class OfferResponse {
   @Expose()
@@ -9,7 +9,7 @@ export default class OfferResponse {
   public date!: string ;
 
   @Expose()
-  public city?: string;
+  public city!: City;
 
   @Expose()
   public previewImage!: string;

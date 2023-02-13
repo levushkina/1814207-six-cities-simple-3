@@ -1,6 +1,7 @@
 import EventEmitter from 'events';
 import { createReadStream } from 'fs';
 import { FileReaderInterface } from './file-reader.interface.js';
+import { READER_HIGH_WATER_MARK } from '../../consts.js'
 
 export default class TSVFileReader extends EventEmitter implements FileReaderInterface {
   constructor(public filename: string) {
@@ -9,7 +10,7 @@ export default class TSVFileReader extends EventEmitter implements FileReaderInt
 
   public async read():Promise<void> {
     const stream = createReadStream(this.filename, {
-      highWaterMark: 16384, // 16KB
+      highWaterMark: READER_HIGH_WATER_MARK,
       encoding: 'utf-8',
     });
 

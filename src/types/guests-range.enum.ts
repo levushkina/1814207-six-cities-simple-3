@@ -1,4 +1,4 @@
 export enum GuestsRange {
-  Min = 0,
+  Min = 1,
   Max = 10,
 }

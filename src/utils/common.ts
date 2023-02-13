@@ -7,12 +7,14 @@ import { Offer } from '../types/offer.type.js';
 import { City } from '../types/city.type.js';
 import { ValidationErrorField } from '../types/validation-error-field.type.js';
 import { ServiceError } from '../types/service-error.enum.js';
+import { OfferGoods } from '../types/offer-goods.enum.js';
 import { UnknownObject } from '../types/unknown-object.type.js';
 import { DEFAULT_STATIC_IMAGES } from '../app/application.constant.js';
 
+
 export const createOffer = (row: string) => {
   const tokens = row.replace('\n', '').split('\t');
-  const [title, description, date, city, previewImage, images, isPremium, rating, type, bedrooms, guests, price, goods, name, email, isPro, password, avatarPath, latitude, longitude ] = tokens;
+  const [title, description, date, city, previewImage, images, isPremium, rating, type, bedrooms, guests, price, goods, name, email, isPro, password, avatarPath, latitude, longitude] = tokens;
   const cityData = <City>JSON.parse(city);
   return {
     title,
@@ -30,7 +32,7 @@ export const createOffer = (row: string) => {
     bedrooms: Number(bedrooms),
     guests: Number(guests),
     price: Number(price),
-    goods: goods.split(';'),
+    goods: goods.split(';') as OfferGoods[],
     host: {name, email, isPro: !!isPro, password, avatarPath},
     location: {latitude: Number(latitude), longitude: Number(longitude)}
   } as Offer;
