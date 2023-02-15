@@ -1,7 +1,7 @@
 import EventEmitter from 'events';
 import { createReadStream } from 'fs';
 import { FileReaderInterface } from './file-reader.interface.js';
-import { READER_HIGH_WATER_MARK } from '../../consts.js'
+import { READER_HIGH_WATER_MARK } from '../../consts.js';
 
 export default class TSVFileReader extends EventEmitter implements FileReaderInterface {
   constructor(public filename: string) {

@@ -1,6 +1,6 @@
 import { createWriteStream, WriteStream } from 'fs';
 import { FileWriterInterface } from './file-writer.interface.js';
-import { WRITER_HIGH_WATER_MARK } from '../../consts.js'
+import { WRITER_HIGH_WATER_MARK } from '../../consts.js';
 
 export default class TSVFileWriter implements FileWriterInterface {
   private stream: WriteStream;

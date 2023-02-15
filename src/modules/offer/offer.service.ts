@@ -60,12 +60,12 @@ export default class OfferService implements OfferServiceInterface {
     const totalRating = (offer.rating + rating) / (offer.commentCount + 1);
 
     return this.offerModel
-    .findByIdAndUpdate(offerId, { '$inc': {
-      commentCount: 1,
-    },
-    '$set': {
-      'rating': Number(totalRating.toFixed(1))
-    }}).exec();
+      .findByIdAndUpdate(offerId, { '$inc': {
+        commentCount: 1,
+      },
+      '$set': {
+        'rating': Number(totalRating.toFixed(1))
+      }}).exec();
   }
 
   public async exists(documentId: string): Promise<boolean> {
