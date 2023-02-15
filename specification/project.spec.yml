@@ -75,7 +75,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/offer'
 
-    put:
+    patch:
       tags:
         - offers
       summary: Редактирование предложения по аренде.
@@ -187,7 +187,7 @@ paths:
       requestBody:
         description: Токен пользователя.
         content:
-          application/json:
+          Authorization:
             schema:
               $ref: '#/components/schemas/usersToken'
         required: true
@@ -307,11 +307,8 @@ components:
           example: 123456
 
     usersToken:
-      type: object
-      properties:
-        token:
-          type: string
-          example: sdsd54s4fs54
+      type: string
+      example: Bearer sdsd54s4fs54
 
     offerExtendet:
       type: object

@@ -9,7 +9,6 @@ import {
   IsDateString,
   IsEnum,
   IsInt,
-  IsMongoId,
   Max,
   MaxLength,
   Min,
@@ -74,7 +73,6 @@ export default class CreateOfferDto {
   @IsEnum(OfferGoods, { each: true, message: 'Goods item must be one of: Breakfast, Air conditioning, Laptop friendly workspace, Baby seat, Washer, Towels, Fridge' })
   public goods!: OfferGoods[];
 
-  @IsMongoId({ message: 'userId field must be valid an id' })
   public host!: string;
 
   @ValidateNested({ message: 'location must be valid Location object' })
