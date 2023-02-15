@@ -15,7 +15,7 @@ export default class GenerateCommand implements CliCommandInterface {
     try {
       this.initialData = await got.get(url).json();
     } catch {
-      return console.log(`Can't fetch data from ${url}.`);
+      return console.log(`Can't fetch data from ${ url }.`);
     }
 
     const offerGeneratorString = new OfferGenerator(this.initialData);

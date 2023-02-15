@@ -18,6 +18,10 @@ import { ValidateObjectIdMiddleware } from '../../common/middlewares/validate-ob
 import { ValidateDtoMiddleware } from '../../common/middlewares/validate-dto.middleware.js';
 import { DocumentExistsMiddleware } from '../../common/middlewares/document-exists.middleware.js';
 import { PrivateRouteMiddleware } from '../../common/middlewares/private-route.middleware.js';
+import { CheckOwnerMiddleware } from '../../common/middlewares/check-owner.middleware.js';
+import { ConfigInterface } from '../../common/config/config.interface.js';
+import { UploadFileMiddleware } from '../../common/middlewares/upload-file.middleware.js';
+import UploadPreviewResponse from './response/upload-preview.response.js';
 
 type ParamsGetOffer = {
   offerId: string;
@@ -27,10 +31,11 @@ type ParamsGetOffer = {
 export default class OfferController extends Controller {
   constructor(
     @inject(Component.LoggerInterface) logger: LoggerInterface,
+    @inject(Component.ConfigInterface) configService: ConfigInterface,
     @inject(Component.OfferServiceInterface) private readonly offerService: OfferServiceInterface,
     @inject(Component.CommentServiceInterface) private readonly commentService: CommentServiceInterface
   ) {
-    super(logger);
+    super(logger, configService);
 
     this.logger.info('Register routes for OfferController...');
 
@@ -58,6 +63,7 @@ export default class OfferController extends Controller {
       handler: this.delete,
       middlewares: [
         new PrivateRouteMiddleware(),
+        new CheckOwnerMiddleware(this.offerService, 'offerId'),
         new ValidateObjectIdMiddleware('offerId'),
         new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId'),
       ]
@@ -68,6 +74,7 @@ export default class OfferController extends Controller {
       handler: this.update,
       middlewares: [
         new PrivateRouteMiddleware(),
+        new CheckOwnerMiddleware(this.offerService, 'offerId'),
         new ValidateObjectIdMiddleware('offerId'),
         new ValidateDtoMiddleware(UpdateOfferDto),
         new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId'),
@@ -80,6 +87,16 @@ export default class OfferController extends Controller {
       middlewares: [
         new ValidateObjectIdMiddleware('offerId'),
         new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId'),
+      ]
+    });
+    this.addRoute({
+      path: '/:offerId/image',
+      method: HttpMethod.Post,
+      handler: this.uploadPreview,
+      middlewares: [
+        new PrivateRouteMiddleware(),
+        new ValidateObjectIdMiddleware('offerId'),
+        new UploadFileMiddleware(this.configService.get('UPLOAD_DIRECTORY'), 'previewImage'),
       ]
     });
   }
@@ -143,5 +160,12 @@ export default class OfferController extends Controller {
 
     const comments = await this.commentService.findByOfferId(params.offerId);
     this.ok(res, fillDTO(CommentResponse, comments));
+  }
+
+  public async uploadPreview(req: Request<core.ParamsDictionary | ParamsGetOffer>, res: Response) {
+    const { offerId } = req.params;
+    const uploadFile = { previewImage: req.file?.filename };
+    await this.offerService.updateById(offerId, uploadFile);
+    this.created(res, fillDTO(UploadPreviewResponse, uploadFile));
   }
 }

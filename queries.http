@@ -10,7 +10,7 @@ POST http://localhost:5000/users/register HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "test@overlook5.net",
+  "email": "test@overlook6.net",
   "name": "Jack",
   "password": "password",
   "isPro": true
@@ -18,7 +18,6 @@ Content-Type: application/json
 
 ###
 
-# Пользователи
 ## Авторизация пользователя
 
 POST http://localhost:5000/users/login HTTP/1.1
@@ -31,25 +30,37 @@ Content-Type: application/json
 
 ###
 
-# Пользователи
 ## Проверка состояния пользователя
 
 GET http://localhost:5000/users/login HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRlc3RAb3Zlcmxvb2s1Lm5ldCIsImlkIjoiNjNlMGI2ZWIxMDk0ZDFmMWU3ZmZkNjU4IiwiaWF0IjoxNjc1NjcxMzY5LCJleHAiOjE2NzU4NDQxNjl9.tA_RBhWNcc-WOQ4LYs9YrGN1CCfyP7SSBHlKwrDwn3Q
 
-
 ###
 
+## Отправка аватарки пользователя
+
+POST http://localhost:5000/users/63e0b6eb1094d1f1e7ffd658/avatar HTTP/1.1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRlc3RAb3Zlcmxvb2s1Lm5ldCIsImlkIjoiNjNlMGI2ZWIxMDk0ZDFmMWU3ZmZkNjU4IiwiaWF0IjoxNjc1ODQ2Mjk4LCJleHAiOjE2NzYwMTkwOTh9.RP1NEjF2ca6qNrufYsxivGpH2ji425oDfWgY_uaQrJo
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="avatar"; filename="screen.png"
+Content-Type: image/png
+
+< /Users/tmp/screen.png
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+###
 # Предложения
 ## Получение списка предложений
+
 
 GET http://localhost:5000/offers/ HTTP/1.1
 Content-Type: application/json
 
 ###
 
-# Предложения
 ## Получение 2х предложений из списка
 
 GET http://localhost:5000/offers/?limit=2 HTTP/1.1
@@ -57,17 +68,17 @@ Content-Type: application/json
 
 ###
 
-# Предложения
 ## Создание предложения
 
 POST http://localhost:5000/offers/ HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRlc3RAb3Zlcmxvb2s1Lm5ldCIsImlkIjoiNjNlMGI2ZWIxMDk0ZDFmMWU3ZmZkNjU4IiwiaWF0IjoxNjc1ODQ2Mjk4LCJleHAiOjE2NzYwMTkwOTh9.RP1NEjF2ca6qNrufYsxivGpH2ji425oDfWgY_uaQrJo
 
 {
   "title": "some short title",
-  "date": "2022-05-12T11:56:37.573Z",
+  "date": "2023-02-08T14:56:37.573Z",
   "city": {
-    "name": "Cologne",
+    "name": "Paris",
     "location": {
       "latitude": 50.938361,
       "longitude": 6.959974
@@ -75,15 +86,13 @@ Content-Type: application/json
   },
   "previewImage": "imagePath",
   "isPremium": true,
-  "rating":  3,
   "type": "Room",
   "price": 36556,
   "description": "Много места, но темно",
-  "images": ["imagePath1", "imagePath2"],
+  "images": ["imagePath1", "imagePath2", "imagePath3", "imagePath4", "imagePath5", "imagePath6"],
   "bedrooms": 4,
   "guests": 2,
   "goods": ["Breakfast", "Washer"],
-  "host": "63d2588093ede432719fcb12",
   "location": {
     "latitude": 53.550341,
     "longitude": 10.000654
@@ -92,21 +101,18 @@ Content-Type: application/json
 
 ###
 
-# Предложения
 ## Получение детальной информации о предложении
 
-GET http://localhost:5000/offers/63d2588093ede432719fcb14 HTTP/1.1
+GET http://localhost:5000/offers/63e5f24192082166388bf010 HTTP/1.1
 Content-Type: application/json
 
 ###
 
-
-# Предложения
 ## Редактирование предложения
 
 PATCH http://localhost:5000/offers/63d2588093ede432719fcb67 HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRlc3RAb3Zlcmxvb2s1Lm5ldCIsImlkIjoiNjNlMGI2ZWIxMDk0ZDFmMWU3ZmZkNjU4IiwiaWF0IjoxNjc1NjcxMzY5LCJleHAiOjE2NzU4NDQxNjl9.tA_RBhWNcc-WOQ4LYs9YrGN1CCfyP7SSBHlKwrDwn3Q
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRlc3RAb3Zlcmxvb2s1Lm5ldCIsImlkIjoiNjNlMGI2ZWIxMDk0ZDFmMWU3ZmZkNjU4IiwiaWF0IjoxNjc1ODQ1NzUwLCJleHAiOjE2NzYwMTg1NTB9.y_-kImZFkhs4TyPE4h-eZwcC5gs6_b6C65XMn-Z5RnM
 
 {
   "title": "some short title new",
@@ -115,14 +121,29 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRlc3RAb3Zlcmxvb2s1Lm5ld
 
 ###
 
-# Предложения
-## Удаление предложения
+## Загрузка изображения для предложения
+POST http://localhost:5000/offers/63d2588093ede432719fcb67/image HTTP/1.1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRlc3RAb3Zlcmxvb2s1Lm5ldCIsImlkIjoiNjNlMGI2ZWIxMDk0ZDFmMWU3ZmZkNjU4IiwiaWF0IjoxNjc1NjcxMzY5LCJleHAiOjE2NzU4NDQxNjl9.tA_RBhWNcc-WOQ4LYs9YrGN1CCfyP7SSBHlKwrDwn3Q
 
-DELETE http://localhost:5000/offers/63d267a23805913a8ca72d57 HTTP/1.1
-Content-Type: application/json
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="previewImage"; filename="items.jpg"
+Content-Type: image/png
+
+< ./markup/img/item03@2x.jpg
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
 
 ###
 
+## Удаление предложения
+
+DELETE http://localhost:5000/offers/63e36c1d90324e242a321b44 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRlc3RAb3Zlcmxvb2s1Lm5ldCIsImlkIjoiNjNlMGI2ZWIxMDk0ZDFmMWU3ZmZkNjU4IiwiaWF0IjoxNjc1ODQ2Mjk4LCJleHAiOjE2NzYwMTkwOTh9.RP1NEjF2ca6qNrufYsxivGpH2ji425oDfWgY_uaQrJo
+
+###
+
+# Комментарии
 ## Список комментариев к объявлению
 GET http://localhost:5000/offers/63d2588093ede432719fcb67/comments HTTP/1.1
 
@@ -131,24 +152,12 @@ GET http://localhost:5000/offers/63d2588093ede432719fcb67/comments HTTP/1.1
 ## Создать комментарий
 POST http://localhost:5000/comments HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRlc3RAb3Zlcmxvb2s1Lm5ldCIsImlkIjoiNjNlMGI2ZWIxMDk0ZDFmMWU3ZmZkNjU4IiwiaWF0IjoxNjc1NjcxMzY5LCJleHAiOjE2NzU4NDQxNjl9.tA_RBhWNcc-WOQ4LYs9YrGN1CCfyP7SSBHlKwrDwn3Q
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRlc3RAb3Zlcmxvb2s1Lm5ldCIsImlkIjoiNjNlMGI2ZWIxMDk0ZDFmMWU3ZmZkNjU4IiwiaWF0IjoxNjc1ODQ2Mjk4LCJleHAiOjE2NzYwMTkwOTh9.RP1NEjF2ca6qNrufYsxivGpH2ji425oDfWgY_uaQrJo
 
 {
   "comment": "Как обстоят дела с коробками? Как обстоят дела с коробками?",
-  "rating": 3,
-  "offerId": "63d2588093ede432719fcb14"
+  "rating": 1,
+  "offerId": "63e5f24192082166388bf010"
 }
 
 ###
-
-## Отправка аватарки пользователю
-
-POST http://localhost:5000/users/62823cb2c5a64ce9f1b50eb6/avatar HTTP/1.1
-Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
-
-------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="avatar"; filename="screen.png"
-Content-Type: image/png
-
-< /Users/tmp/screen.png
-------WebKitFormBoundary7MA4YWxkTrZu0gW--

@@ -5,6 +5,9 @@ import UserResponse from '../../user/response/user.response.js';
 
 export default class OfferFullResponse {
   @Expose()
+  public id!: string;
+
+  @Expose()
   public title!: string;
 
   @Expose()
@@ -29,7 +32,7 @@ export default class OfferFullResponse {
   public price!: number;
 
   @Expose()
-  public commentsCount!: number;
+  public commentCount!: number;
 
   @Expose()
   public description!: string;
