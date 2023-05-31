@@ -13,4 +13,6 @@ export interface OfferServiceInterface extends DocumentExistsInterface, CheckOwn
   deleteById(offerId: string): Promise<DocumentType<OfferEntity> | null>;
   incCommentCount(offerId: string, rating: number): Promise<DocumentType<OfferEntity> | null>;
   exists(documentId: string): Promise<boolean>;
+  findNearbyByOfferId(offerId: string, count?: number): Promise<DocumentType<OfferEntity>[]>;
+  //findNearbyByOfferId(offerId: string): Promise<DocumentType<OfferEntity[]> | null>;
 }

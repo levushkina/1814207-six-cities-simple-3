@@ -3,6 +3,9 @@ import { City } from '../../../types/city.type.js';
 
 export default class OfferResponse {
   @Expose()
+  public id!: string;
+
+  @Expose()
   public title!: string ;
 
   @Expose()

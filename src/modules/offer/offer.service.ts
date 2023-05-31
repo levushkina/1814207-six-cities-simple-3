@@ -7,7 +7,7 @@ import { OfferEntity } from './offer.entity.js';
 import { Component } from '../../types/component.types.js';
 import { SortType } from '../../types/sort-type.enum.js';
 import { LoggerInterface } from '../../common/logger/logger.interface.js';
-import { DEFAULT_OFFER_COUNT } from './offer.constant.js';
+import { DEFAULT_OFFER_COUNT, DEFAULT_NEARBY_OFFER_COUNT } from './offer.constant.js';
 
 @injectable()
 export default class OfferService implements OfferServiceInterface {
@@ -79,5 +79,17 @@ export default class OfferService implements OfferServiceInterface {
       .populate(['host'])
       .exec();
     return offer?.host?._id.toString() === userId;
+  }
+
+  public async findNearbyByOfferId(offerId: string, count?: number): Promise<DocumentType<OfferEntity>[]> {
+    const limit = count ?? DEFAULT_NEARBY_OFFER_COUNT;
+    const offer = await this.offerModel.findById(offerId).exec();
+    const cityName = offer?.city.name;
+
+    if (!offer) { return []; }
+    return this.offerModel
+      .find({'city.name': cityName}, {}, { limit })
+      .populate(['host'])
+      .exec();
   }
 }

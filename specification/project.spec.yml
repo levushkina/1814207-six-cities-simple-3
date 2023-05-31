@@ -128,6 +128,21 @@ paths:
         "404":
           description: Предложение по аренде не найдено.
 
+  /offers/{offerId}/nearby:
+    get:
+      tags:
+        - offers
+      summary: Получение списка предложений неподалеку.
+      description: Возвращает детальню информацию о предложении.
+
+      responses:
+        "200":
+          description: Информация о предложениях неподалеку.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/offers'
+
   /users/register:
     post:
       tags:

@@ -99,6 +99,15 @@ export default class OfferController extends Controller {
         new UploadFileMiddleware(this.configService.get('UPLOAD_DIRECTORY'), 'previewImage'),
       ]
     });
+    this.addRoute({
+      path: '/:offerId/nearby',
+      method: HttpMethod.Get,
+      handler: this.getNearby,
+      middlewares: [
+        new ValidateObjectIdMiddleware('offerId'),
+        new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId'),
+      ]
+    });
   }
 
   public async index(
@@ -167,5 +176,14 @@ export default class OfferController extends Controller {
     const uploadFile = { previewImage: req.file?.filename };
     await this.offerService.updateById(offerId, uploadFile);
     this.created(res, fillDTO(UploadPreviewResponse, uploadFile));
+  }
+
+  public async getNearby(
+    { params }: Request<core.ParamsDictionary | ParamsGetOffer, object, object>,
+    res: Response
+  ): Promise<void> {
+
+    const nearby = await this.offerService.findNearbyByOfferId(params.offerId);
+    this.ok(res, fillDTO(OfferResponse, nearby));
   }
 }
