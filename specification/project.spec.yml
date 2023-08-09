@@ -1,0 +1,455 @@
+openapi: 3.1.0
+info:
+  title: API сервер для демо-проекта «Шесть городов».
+  description: |-
+    * Список ресурсов и маршрутов сервера «Шесть городов».
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  version: 1.0.0
+tags:
+  - name: offers
+    description: Действия с объявлениями.
+  - name: comments
+    description: Действия с комментариями.
+  - name: users
+    description: Действия с пользователем.
+
+paths:
+  /offers/:
+    get:
+      tags:
+        - offers
+      summary: Получение списка предложений по аренде.
+      description: Возвращает список предложений по аренде.
+
+      responses:
+        "200":
+          description: Список предложений.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/offers'
+    
+    post:
+      tags:
+        - offers
+      summary: Создание предложения по аренде.
+      description: Создает предложение по аренде.
+      requestBody:
+        description: Информация для создания нового предложения.
+        content:
+          application/json:
+            schema:
+               allOf: 
+                  - $ref: '#/components/schemas/offerShort'
+                  - $ref: '#/components/schemas/offerExtendet'
+        required: true
+
+      responses:
+        "200":
+          description: Список предложений.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/offer'
+              
+        "401":
+          description: Для размещения предложения, пользователь должен быть авторизован.
+
+        "400":
+          description: Незаполненны обязательные поля.
+
+  /offers/{offerId}:
+    get:
+      tags:
+        - offers
+      summary: Получение детальной информации о предложении.
+      description: Возвращает детальню информацию о предложении.
+
+      responses:
+        "200":
+          description: Информация о предложений.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/offer'
+
+    patch:
+      tags:
+        - offers
+      summary: Редактирование предложения по аренде.
+      description: Редактирует предложение по аренде.
+      requestBody:
+        description: Информация для редактирования предложения.
+        content:
+          application/json:
+            schema:
+               allOf: 
+                  - $ref: '#/components/schemas/offerShort'
+                  - $ref: '#/components/schemas/offerExtendet'
+        required: true
+
+      responses:
+        "200":
+          description: Отредактированное предложение по аренде.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/offer'
+        
+        "400":
+          description: Незаполненны обязательные поля.
+
+        "401":
+          description: Пользователь должен быть авторизован.
+
+        "403":
+          description: У пользователя нет прав редактировать данное предложение по аренде.
+        
+        '404':
+          description: Предложение по аренде не найдено.
+    delete:
+      tags:
+        - offers
+      summary: Удаление предложения по аренде.
+      description: Удаляет предложение по аренде.
+
+      responses:
+        "200":
+          description: Предложение по аренде удалено.
+         
+        "401":
+          description: Пользователь должен быть авторизован.
+
+        "403":
+          description: У пользователя нет прав редактировать данное предложение по аренде.
+
+        "404":
+          description: Предложение по аренде не найдено.
+
+  /offers/{offerId}/nearby:
+    get:
+      tags:
+        - offers
+      summary: Получение списка предложений неподалеку.
+      description: Возвращает детальню информацию о предложении.
+
+      responses:
+        "200":
+          description: Информация о предложениях неподалеку.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/offers'
+
+  /users/register:
+    post:
+      tags:
+        - users
+      summary: Регистрация пользователя
+      description: Регистрирует нового пользователя.
+      requestBody:
+        description: Информация для создания нового пользователя.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createUser'
+        required: true
+
+      responses:
+        "201":
+          description: Пользователь зарегистрирован. Объект пользователя.
+          content:
+            application/json:
+              schema:
+                 $ref: '#/components/schemas/user'
+
+        "409":
+          description: Пользователь с таким email уже существует.
+
+  /users/login:
+    post:
+      tags:
+        - users
+      summary: Авторизация пользователя
+      description: Авторизует пользователя на основе логина и пароля
+      requestBody:
+        description: Информация для авторизации существующего пользователя.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/loginUser'
+        required: true
+
+      responses:
+        "200":
+          description: Пользователь завторизован. Токен пользователя.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/usersToken'
+
+        "404":
+          description: Пользователь не найден.
+
+    get:
+      tags:
+        - users
+      summary: Проверка состояния пользователя
+      description: Возвращает информацию по авторизованному пользователю
+
+      requestBody:
+        description: Токен пользователя.
+        content:
+          Authorization:
+            schema:
+              $ref: '#/components/schemas/usersToken'
+        required: true
+
+      responses:
+        "200":
+          description: Пользователь завторизован. Токен пользователя.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+
+        "401":
+          description: Пользователь не авторизован.
+
+  /users/{userId}/avatar:
+    post:
+      tags:
+        - users
+      summary: Загрузить изображение аватара
+      description: Загружает изображение аватара пользователя. Изображение
+        аватара должно быть в формате `png` или `jpg`.
+
+  /comments:
+    get:
+      tags:
+        - comments
+      summary: Получение списка комментариев для предложения по аренде.
+      description: Возвращает список комментариев для предложения по аренде.
+      parameters:
+        - in: path
+          name: offerId
+          schema:
+            type: string
+          required: true
+
+      responses:
+        "200":
+          description: Список комментариев.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/comments'
+    
+    post:
+      tags:
+        - comments
+      summary: Создание комментария для предложения по аренде.
+      description: Создает комментарий для предложения по аренде.
+      requestBody:
+        description: Информация для создания нового предложения.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/comment'
+        required: true
+      
+      responses:
+        "200":
+          description: Список комментариев.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/commentWithDate'
+              
+        "401":
+          description: Для размещения комментария, пользователь должен быть авторизован.
+
+        "400":
+          description: Незаполненны обязательные поля.
+
+components:
+  schemas:
+    createUser:
+      type: object
+
+      properties:
+        email:
+          type: string
+          example: keks@htmlacademy.ru
+
+        name:
+          type: string
+          example: Keks
+
+        avatarPath:
+          type: string
+          example: torrance.png
+
+        password:
+          type: string
+          example: 123456
+
+    user:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Keks
+        email:
+          type: string
+          example: keks@htmlacademy.ru
+        avatarPath:
+          type: string
+          example: torrance.png
+
+    loginUser:
+      type: object
+
+      properties:
+        email:
+          type: string
+          example: keks@htmlacademy.ru
+
+        password:
+          type: string
+          example: 123456
+
+    usersToken:
+      type: string
+      example: Bearer sdsd54s4fs54
+
+    offerExtendet:
+      type: object
+      properties:
+        description: 
+          type: string
+          example: some description
+        images: 
+          type: array
+          items:
+            type: string
+            example: imagePath
+        bedrooms: 
+          type: number
+          example: 4
+        guests: 
+          type: number
+          example: 2
+        goods:
+          type: array
+          items: 
+            type: string
+            example: goodItem
+        host: 
+          type: string
+          example: testid
+        location:
+          $ref: '#/components/schemas/location'
+
+    offerShort:
+      type: object
+      properties:
+        title: 
+          type: string
+          example: some title
+        date: 
+          type: Date
+          example: 10.35.55
+        city:
+          $ref: '#/components/schemas/city'
+        previewImage:
+          type: string
+          example: imagePath
+        isPremium: 
+          type: boolean
+          example: true
+        rating: 
+          type: number
+          example: 3.5
+        type: 
+          type: string
+          example: 'Room'
+        price:
+          type: number
+          example: 36556
+
+    commentCount:
+      type: object
+      properties:
+        commentCount:
+          type: number
+          example: 8
+
+    offer:
+      type: object
+      allOf: 
+        - $ref: '#/components/schemas/offerShort'
+        - $ref: '#/components/schemas/offerExtendet'
+        - $ref: '#/components/schemas/commentCount'
+
+    offers:
+      type: array
+      items:
+        allOf: 
+          - $ref: '#/components/schemas/offerShort'
+          - $ref: '#/components/schemas/commentCount'
+        
+    comment:
+      type: object
+      properties:
+        text:
+          type: string
+          example: coment text
+        rating:
+          type: number
+          example: 3.2
+        offerId:
+          type: string
+          example: 'fdf54f4d5f'
+        userId:
+          type: string
+          example: 'fdf54f4d5f'
+
+    commentWithDate:
+      type: object
+      allOf: 
+        - $ref: '#/components/schemas/comment'
+        - $ref: '#/components/schemas/commentDate'
+       
+    comments:
+      type: array
+      items:
+        $ref: '#/components/schemas/commentWithDate'
+
+    commentDate:
+      type: object
+      properties:
+        date:
+          type: Date
+          example: 31/12/24
+
+    location:
+      type: object
+      properties:
+        latitude:
+          type: number
+          example: 48.85661
+        longitude: 
+          type: number
+          example: 2.351499
+
+    city:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Paris
+        location: 
+          $ref: '#/components/schemas/location'
